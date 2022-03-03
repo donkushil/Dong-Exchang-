@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Scope of use | Dong-Exchang-</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Scope of use" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Dong Exchange" />
+<meta property="og:description" content="Dong Exchange" />
+<link rel="canonical" href="https://donkushil.github.io/Dong-Exchang-/" />
+<meta property="og:url" content="https://donkushil.github.io/Dong-Exchang-/" />
+<meta property="og:site_name" content="Dong-Exchang-" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Scope of use" />
+<script type="application/ld+json">
+{"description":"Dong Exchange","url":"https://donkushil.github.io/Dong-Exchang-/","@type":"WebSite","headline":"Scope of use","name":"Dong-Exchang-","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/Dong-Exchang-/assets/css/style.css?v=0f2b6f3ac9532ac30ecbadc6869aa0439b65c94e">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/Dong-Exchang-/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://donkushil.github.io/Dong-Exchang-/">Dong-Exchang-</a></h1>
+      
+
+      <h2 id="scope-of-use">Scope of use</h2>
+<p>This script could be used on Linux/MacOS, but not on Windows.
+Just Support FullNode and SolidityNode.</p>
+
+<h2 id="download-and-run-script">Download and run script</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+</code></pre></div></div>
+
+<h2 id="parameter-illustration">Parameter Illustration</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_tron.sh <span class="nt">--app</span> <span class="o">[</span>FullNode|SolidityNode] <span class="nt">--net</span> <span class="o">[</span>mainnet|testnet|privatenet] <span class="nt">--db</span> <span class="o">[</span>keep|remove|backup] <span class="nt">--heap-size</span> &lt;heapsize&gt;
+
+<span class="nt">--app</span>	Optional, Running application. The default node is Fullnode and it could be FullNode or SolidityNode.
+<span class="nt">--net</span>	Optional, Connecting network. The default network is mainnet and it could be mainnet, testnet.
+<span class="nt">--db</span>	Optional, The way of data processing could be keep, remove and backup. Default is keep. If you launch two different networks, like from mainnet to testnet or from testnet to mainnet, you need to delete database.
+<span class="nt">--trust-node</span>	Optional, It only works when deploying SolidityNode. Default is 127.0.0.1:50051. The specified gRPC service of Fullnode, like 127.0.0.1:50051 or 13.125.249.129:50051.
+<span class="nt">--rpc-port</span>	Optional, Port of grpc. Default is 50051. If you deploy SolidityNode and FullNode on the same host，you need to configure different ports.
+<span class="nt">--commit</span>	Optional, commitid of project.
+<span class="nt">--branch</span>	Optional, branch of project.  Mainnet default is latest release and Testnet default is master.
+<span class="nt">--heap-size</span>  Optional, jvm option: Xmx. The default heap-size is 0.8 <span class="k">*</span> memory size.
+<span class="nt">--work_space</span>  Optional, default is current directory.
+</code></pre></div></div>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="deployment-of-fullnode-on-the-one-host">Deployment of FullNode on the one host.</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+bash deploy_tron.sh
+</code></pre></div></div>
+
+<h3 id="deployment-of-soliditynode-on-the-one-host">Deployment of SolidityNode on the one host.</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+<span class="c"># User can self-configure the IP and Port of GRPC service in the turst-node field of SolidityNode. trust-node is the fullnode you just deploy.</span>
+bash deploy_tron.sh <span class="nt">--app</span> SolidityNode <span class="nt">--trust-node</span> &lt;grpc-ip:grpc-port&gt;
+</code></pre></div></div>
+
+<h3 id="deployment-of-fullnode-and-soliditynode-on-the-same-host">Deployment of FullNode and SolidityNode on the same host.</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># You need to configure different gRPC ports on the same host because gRPC port is available on SolidityNode and FullNodeConfigure and it cannot be set as default value 50051. In this case the default value of rpc port is set as 50041.</span>
+wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+bash deploy_tron.sh <span class="nt">--app</span> FullNode
+bash deploy_tron.sh <span class="nt">--app</span> SolidityNode <span class="nt">--rpc-port</span> 50041
+</code></pre></div></div>
+
+<h2 id="deployment-of-grpc-gateway">Deployment of grpc gateway</h2>
+
+<h3 id="summary">Summary</h3>
+<p>This script helps you download the code from https://github.com/tronprotocol/grpc-gateway and deploy the code on your environment.</p>
+<h3 id="pre-requests">Pre-requests</h3>
+<p>Please follow the guide on https://github.com/tronprotocol/grpc-gateway 
+Install Golang, Protoc, and set $GOPATH environment variable according to your requirement.</p>
+<h3 id="download-and-run-script-1">Download and run script</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh <span class="nt">-O</span> deploy_grpc_gateway.sh
+</code></pre></div></div>
+<h3 id="parameter-illustration-1">Parameter Illustration</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh <span class="nt">--rpchost</span> <span class="o">[</span>rpc host ip] <span class="nt">--rpcport</span> <span class="o">[</span>rpc port number] <span class="nt">--httpport</span> <span class="o">[</span>http port number] 
+
+<span class="nt">--rpchost</span> The fullnode or soliditynode IP where the grpc service is provided. Default value is <span class="s2">"localhost"</span><span class="nb">.</span>
+<span class="nt">--rpcport</span> The fullnode or soliditynode port number grpc service is consuming. Default value is 50051.
+<span class="nt">--httpport</span> The port intends to provide http service provided by grpc gateway. Default value is 18890.
+</code></pre></div></div>
+<h3 id="example">Example</h3>
+<p>Use default configuration：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh
+</code></pre></div></div>
+<p>Use customized configuration：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh <span class="nt">--rpchost</span> 127.0.0.1 <span class="nt">--rpcport</span> 50052 <span class="nt">--httpport</span> 18891
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

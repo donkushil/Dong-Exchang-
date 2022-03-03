@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>下载/更新启动脚本 | Dong-Exchang-</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="下载/更新启动脚本" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Dong Exchange" />
+<meta property="og:description" content="Dong Exchange" />
+<link rel="canonical" href="https://donkushil.github.io/Dong-Exchang-/README_CN.html" />
+<meta property="og:url" content="https://donkushil.github.io/Dong-Exchang-/README_CN.html" />
+<meta property="og:site_name" content="Dong-Exchang-" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="下载/更新启动脚本" />
+<script type="application/ld+json">
+{"description":"Dong Exchange","url":"https://donkushil.github.io/Dong-Exchang-/README_CN.html","@type":"WebPage","headline":"下载/更新启动脚本","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/Dong-Exchang-/assets/css/style.css?v=0f2b6f3ac9532ac30ecbadc6869aa0439b65c94e">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/Dong-Exchang-/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://donkushil.github.io/Dong-Exchang-/">Dong-Exchang-</a></h1>
+      
+
+      <h2 id="下载更新启动脚本">下载/更新启动脚本</h2>
+
+<p>由于启动脚本可能会发生变化，请每次使用前都重新下载启动脚本</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+</code></pre></div></div>
+
+<h2 id="启动参数说明">启动参数说明</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_tron.sh <span class="nt">--app</span> <span class="o">[</span>FullNode|SolidityNode] <span class="nt">--net</span> <span class="o">[</span>mainnet|testnet] <span class="nt">--db</span> <span class="o">[</span>keep|remove|backup] 
+
+<span class="nt">--app</span>	      启动的应用，默认FullNode，可以是FullNode或者SolidityNode
+<span class="nt">--net</span>	      连接的网络，默认mainnet，可以是mainnet或者testnet
+<span class="nt">--db</span>	      数据库处理方式，可以keep,remove,backup。如果两次启动不同的网络，需要删除数据库
+<span class="nt">--trust-node</span>	只有在启动SolidityNode中生效，指定连接的FullNode的gRPC服务 .比如 127.0.0.1:50051 或者13.125.249.129:50051
+<span class="nt">--rpc-port</span>	grpc的端口号，如果在同一台机器上部署SolidityNode和FullNode，必须配置不同的端口号
+<span class="nt">--commit</span>	选填，项目commitid
+<span class="nt">--branch</span>	选填，项目分支
+</code></pre></div></div>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="单独启动主网fullnode">单独启动主网FullNode</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+bash deploy_tron.sh <span class="nt">--app</span> FullNode <span class="nt">--net</span> mainnet
+</code></pre></div></div>
+
+<h3 id="单独启动主网soliditynode">单独启动主网SolidityNode</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+<span class="c"># 这里自己指定SolidityNode的trust-node的gRPC服务的ip和端口号</span>
+bash deploy_tron.sh <span class="nt">--app</span> SolidityNode <span class="nt">--net</span> mainnet <span class="nt">--trust-node</span> &lt;grpc-ip:grpc-port&gt;
+</code></pre></div></div>
+
+<h3 id="启动主网fullnode和soliditynode在同一台机器">启动主网FullNode和SolidityNode在同一台机器</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_tron.sh <span class="nt">-O</span> deploy_tron.sh
+bash deploy_tron.sh <span class="nt">--app</span> FullNode <span class="nt">--net</span> mainnet
+<span class="c"># 由于FullNode和SolidityNode都需要对外提供gRPC服务</span>
+<span class="c"># 所以在同一台机器安装SolidityNode需要配置不同的gRPC端口号</span>
+<span class="c"># 不能是默认gRPC端口号50051，在此例中rpc端口设置为50041</span>
+bash deploy_tron.sh <span class="nt">--app</span> SolidityNode <span class="nt">--net</span> mainnet <span class="nt">--trust-node</span> 127.0.0.1:50051 <span class="nt">--rpc-port</span> 50041
+</code></pre></div></div>
+
+<h2 id="grpc-gateway-的部署安装">grpc gateway 的部署安装</h2>
+
+<h3 id="概要">概要</h3>
+<p>本脚本用于部署https://github.com/tronprotocol/grpc-gateway 代码， 并部署gateway。</p>
+<h3 id="预安装">预安装</h3>
+<p>请阅读https://github.com/tronprotocol/grpc-gateway 并安装：go，protoc，请依照个人需求设置好$GOPATH环境变量</p>
+<h3 id="下载与启动">下载与启动</h3>
+<p>由于启动脚本可能会发生变化，请每次使用前都重新下载启动脚本</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/tronprotocol/TronDeployment/master/deploy_grpc_gateway.sh <span class="nt">-O</span> deploy_grpc_gateway.sh
+</code></pre></div></div>
+<h3 id="参数说明">参数说明</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh <span class="nt">--rpchost</span> <span class="o">[</span>rpc host ip] <span class="nt">--rpcport</span> <span class="o">[</span>rpc port number] <span class="nt">--httpport</span> <span class="o">[</span>http port number] 
+
+<span class="nt">--rpchost</span> 启动grpc服务的fullnode或soliditynode的ip，默认为localhost
+<span class="nt">--rpcport</span> 启动grpc服务的fullnode或soliditynode的grpc端口号，默认为50051
+<span class="nt">--httpport</span> 开放http服务的端口，默认为18890
+</code></pre></div></div>
+<h3 id="example">Example</h3>
+<p>使用默认配置：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh
+</code></pre></div></div>
+<p>使用参数配置：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash deploy_grpc_gateway.sh <span class="nt">--rpchost</span> 127.0.0.1 <span class="nt">--rpcport</span> 50052 <span class="nt">--httpport</span> 18891
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
